@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { CompareProvider } from "@/components/compare-provider";
 import "./globals.css";
 
 const manrope = localFont({
@@ -28,13 +29,13 @@ THESIS: Atmospheric financial intelligence for autonomous-agent discovery; refus
 OWN-WORLD: Cobalt sky, pale cloud, editorial serif wordmark, floating capsule navigation, ivory utility panels, and precise Manrope metadata.
 STORY: State the outcome, scan the horizon of indexed agents, inspect provenance, and choose the next move with evidence.
 FIRST VIEWPORT: Full-bleed atmospheric field; capsule nav above centered noria wordmark, mandate search, and a real featured record below.
-FORM: Operate direction, Anything × Airside fusion, seed e81ba8fb.
+FORM: Operate direction, Anything × Airside motion language, video reference supplied by user, seed e81ba8fb.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
 */
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${manrope.variable} ${dmSerif.variable}`}>
-      <body data-impeccable-direction="e81ba8fb">{children}</body>
+      <body data-impeccable-direction="e81ba8fb"><CompareProvider>{children}</CompareProvider></body>
     </html>
   );
 }

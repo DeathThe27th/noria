@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { AgentRecord } from "@/lib/8004scan";
+import { CompareButton } from "@/components/compare-provider";
 import { agentApiUrl, formatDate, shortAddress } from "@/lib/8004scan";
 
 function evidenceLabel(agent: AgentRecord) {
@@ -47,6 +48,7 @@ export function AgentCard({ agent, relevance, matchReason }: { agent: AgentRecor
           <span className="font-mono text-[11px] tabular-nums text-[#8c8089]">{shortAddress(agent.owner_address)}</span>
           <div className="flex items-center gap-3">
             <a href={agentApiUrl(agent.chain_id, agent.token_id)} target="_blank" rel="noreferrer" className="text-xs text-[#71676f] underline decoration-[#c7bcc5] transition hover:text-[#251926]">Source</a>
+            <CompareButton agent={agent} />
             <Link href={`/agents/${agent.chain_id}/${agent.token_id}`} className="bg-[#251926] px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-[#5d315f]">Passport →</Link>
           </div>
         </div>

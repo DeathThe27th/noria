@@ -1,0 +1,12 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
+type Mission = { id: string; agentName: string; goal: string; expiry: string; limit: string; status: string; createdAt: string };
+
+export default function MissionsPage() {
+  const [missions, setMissions] = useState<Mission[]>([]);
+  useEffect(() => { const hydrate = window.setTimeout(() => { try { const saved = JSON.parse(localStorage.getItem("noria.missions.v1") ?? "[]"); if (Array.isArray(saved)) setMissions(saved); } catch { /* unavailable storage */ } }, 0); return () => window.clearTimeout(hydrate); }, []);
+  return <main className="min-h-screen bg-[#f1eee7] px-5 py-8 text-[#182642] sm:px-8 lg:px-10"><div className="mx-auto max-w-5xl"><div className="flex items-center justify-between"><Link href="/" className="font-editorial text-2xl italic text-[#5d315f]">noria</Link><Link href="/discover" className="text-sm text-[#71676f] hover:text-[#182642]">Discover agents →</Link></div><div className="mt-16 border-b border-[#bdb1b9] pb-8"><p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#6d6070]">Workspace</p><h1 className="mt-4 font-editorial text-6xl leading-[.9] tracking-[-0.04em] sm:text-8xl">Your missions.</h1><p className="mt-5 max-w-2xl text-sm leading-7 text-[#71676f]">Drafts are stored locally while Noria’s verified activation and persistence layers are being connected. Nothing here implies an executed transaction.</p></div>{!missions.length ? <div className="mt-10 border border-[#d8d0c8] bg-[#faf8f3] p-8 text-sm text-[#71676f]">No mission drafts yet. Open an Agent Passport and draft a mandate.</div> : <div className="mt-10 space-y-4">{missions.map((mission) => <article key={mission.id} className="border border-[#d8d0c8] bg-[#faf8f3] p-6"><div className="flex flex-wrap items-start justify-between gap-4"><div><p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[#8c8089]">Draft mission</p><h2 className="mt-3 font-editorial text-3xl text-[#182642]">{mission.agentName}</h2></div><span className="border border-[#d7bd8c] bg-[#fff6df] px-3 py-1 text-xs font-semibold text-[#765b24]">Not executed</span></div><p className="mt-5 text-sm leading-7 text-[#71676f]">{mission.goal}</p><div className="mt-6 flex flex-wrap gap-3 font-mono text-[10px] uppercase tracking-[0.12em] text-[#8c8089]"><span>Expiry · {mission.expiry}</span><span>Spend cap · {mission.limit} BNB</span><span>Status · {mission.status}</span></div></article>)}</div>}</div></main>;
+}

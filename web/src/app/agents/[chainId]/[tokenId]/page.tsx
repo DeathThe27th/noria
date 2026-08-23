@@ -49,7 +49,7 @@ export default async function AgentPassport({ params }: { params: Promise<{ chai
       <div className="mx-auto max-w-5xl">
         <div className="flex items-center justify-between gap-4">
           <Link href="/discover" className="text-sm text-[#71676f] transition hover:text-[#251926]">← Back to discovery</Link>
-          <a href={sourceUrl} target="_blank" rel="noreferrer" className="text-sm text-[#71676f] underline decoration-[#c7bcc5] transition hover:text-[#251926]">Source JSON ↗</a>
+          <div className="flex items-center gap-4"><Link href={`/missions/new?agent=${agent.token_id}`} className="bg-[#251926] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#5d315f]">Draft mission →</Link><a href={sourceUrl} target="_blank" rel="noreferrer" className="text-sm text-[#71676f] underline decoration-[#c7bcc5] transition hover:text-[#251926]">Source JSON ↗</a></div>
         </div>
 
         <section className="mt-14 border border-[#d8d0c8] bg-[#faf8f3] p-7 shadow-[0_25px_70px_rgba(45,25,45,.08)] sm:p-10">
