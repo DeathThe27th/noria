@@ -1,69 +1,86 @@
 import Link from "next/link";
 import { AgentCard } from "@/components/agent-card";
+import { Concierge } from "@/components/concierge";
 import { getAgents } from "@/lib/8004scan";
 
-const categories = [
-  { label: "Rebalancing", query: "rebalancing", note: "Keep positions in range" },
-  { label: "Grid trading", query: "grid trading", note: "Automate disciplined orders" },
-  { label: "Yield optimisation", query: "yield", note: "Route capital with evidence" },
-  { label: "Health factor", query: "health factor", note: "Watch lending risk" },
+const outcomes = [
+  { label: "Rebalancing", query: "rebalancing", note: "Keep liquidity positions inside their intended ranges." },
+  { label: "Grid trading", query: "grid trading", note: "Discover agents that publish automated order strategies." },
+  { label: "Yield optimisation", query: "yield", note: "Find agents that declare yield discovery or routing capabilities." },
+  { label: "Health factor", query: "health factor", note: "Monitor lending risk and published protection capabilities." },
 ];
 
 export default async function Home() {
-  const latest = await getAgents({ limit: 12 }).catch(() => ({ success: false, data: [], meta: undefined }));
-  const categoryResults = await Promise.all(categories.map((category) => getAgents({ query: category.query, limit: 4 }).catch(() => ({ success: false, data: [], meta: undefined }))));
-  const hasData = latest.data.length > 0;
+  const [latest, ...outcomeResults] = await Promise.all([
+    getAgents({ limit: 6 }).catch(() => ({ success: false, data: [], meta: undefined })),
+    ...outcomes.map((outcome) => getAgents({ query: outcome.query, limit: 4 }).catch(() => ({ success: false, data: [], meta: undefined }))),
+  ]);
+  const totalRecords = latest.meta?.pagination?.total;
 
   return (
-    <main className="min-h-screen overflow-hidden">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-7 lg:px-10">
-        <Link href="/" className="flex items-center gap-3 text-sm font-semibold tracking-[0.22em] text-white">
-          <span className="flex h-8 w-8 items-center justify-center rounded-xl border border-violet-200/25 bg-violet-200/10 text-xs text-violet-100">N</span>
+    <main className="min-h-screen overflow-hidden text-[#251926]">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between border-b border-[#d8d0c8] px-6 py-6 lg:px-10">
+        <Link href="/" className="flex items-center gap-3 text-sm font-bold tracking-[0.16em] text-[#251926]">
+          <span className="flex h-8 w-8 items-center justify-center bg-[#5d315f] text-xs text-white">N</span>
           NORIA
         </Link>
-        <div className="flex items-center gap-5 text-sm text-slate-400">
-          <Link href="#categories" className="hidden transition hover:text-white sm:block">Explore</Link>
-          <Link href="/discover" className="rounded-full border border-white/15 px-4 py-2 text-slate-200 transition hover:border-violet-200/45 hover:bg-white/5">Find an agent</Link>
+        <div className="flex items-center gap-5 text-sm text-[#71676f]">
+          <Link href="#outcomes" className="hidden transition hover:text-[#251926] sm:block">Explore</Link>
+          <Link href="/discover" className="border border-[#a99da6] bg-[#faf8f3] px-4 py-2 font-semibold text-[#251926] transition hover:border-[#5d315f]">Browse agents</Link>
         </div>
       </nav>
 
-      <section className="mx-auto max-w-7xl px-6 pb-20 pt-16 lg:px-10 lg:pt-24">
-        <div className="max-w-4xl">
-          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.34em] text-violet-200/80">The agent layer for BNB Smart Chain</p>
-          <h1 className="max-w-4xl text-5xl font-semibold leading-[0.98] tracking-[-0.065em] text-white sm:text-7xl lg:text-[6.7rem]">
-            Tell Noria what you want to do.
-          </h1>
-          <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-300/75 sm:text-xl">
-            Discover live agents, compare what they can actually do, and choose with evidence—not hype.
-          </p>
-          <form action="/discover" className="mt-10 flex max-w-3xl flex-col gap-3 rounded-[1.4rem] border border-white/15 bg-white/[0.06] p-3 shadow-2xl shadow-violet-950/20 backdrop-blur sm:flex-row">
-            <input name="q" placeholder="e.g. Find a low-risk agent to monitor my lending position" className="min-h-14 flex-1 bg-transparent px-4 text-sm text-white outline-none placeholder:text-slate-500" />
-            <button className="min-h-14 rounded-xl bg-white px-6 text-sm font-semibold text-[#160d20] transition hover:bg-violet-100">Find agents <span className="ml-2">→</span></button>
-          </form>
-          <div className="mt-5 flex flex-wrap gap-2 text-xs text-slate-500">
-            <span>Try</span><Link href="/discover?q=yield" className="rounded-full border border-white/10 px-3 py-1.5 transition hover:border-violet-200/35 hover:text-white">yield</Link><Link href="/discover?q=grid" className="rounded-full border border-white/10 px-3 py-1.5 transition hover:border-violet-200/35 hover:text-white">grid trading</Link><Link href="/discover?q=health" className="rounded-full border border-white/10 px-3 py-1.5 transition hover:border-violet-200/35 hover:text-white">health factor</Link>
+      <section className="mx-auto grid max-w-7xl gap-12 px-6 pb-24 pt-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(21rem,.85fr)] lg:px-10 lg:pt-20">
+        <div>
+          <h1 className="max-w-4xl text-5xl font-semibold leading-[0.98] tracking-[-0.04em] text-[#251926] sm:text-7xl lg:text-8xl">Find the agent that fits the mandate.</h1>
+          <p className="mt-7 max-w-2xl text-lg leading-8 text-[#71676f] sm:text-xl">BNB Smart Chain agent records, presented with the provenance, interfaces, and missing evidence you need to make a decision.</p>
+          <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 border-t border-[#d8d0c8] pt-5 text-xs text-[#71676f]">
+            {totalRecords ? <span><strong className="text-[#251926]">{new Intl.NumberFormat("en", { notation: "compact" }).format(totalRecords)}</strong> BSC records indexed by source</span> : null}
+            <span><strong className="text-[#251926]">4</strong> required outcome categories</span>
+            <span><strong className="text-[#251926]">0</strong> invented profiles</span>
           </div>
         </div>
+        <div className="self-end"><Concierge /></div>
       </section>
 
-      <section id="categories" className="mx-auto max-w-7xl px-6 pb-20 lg:px-10">
-        <div className="mb-7 flex items-end justify-between gap-6">
-          <div><p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Explore the network</p><h2 className="mt-3 text-3xl font-semibold tracking-[-0.045em] text-white">Start with an outcome.</h2></div>
-          <Link href="/discover" className="hidden text-sm text-slate-400 transition hover:text-white sm:block">Browse all agents →</Link>
+      <section id="outcomes" className="mx-auto max-w-7xl px-6 pb-24 lg:px-10">
+        <div className="flex items-end justify-between gap-6 border-b border-[#bdb1b9] pb-5">
+          <h2 className="text-3xl font-semibold tracking-[-0.035em] text-[#251926]">Explore by outcome</h2>
+          <Link href="/discover" className="hidden text-sm text-[#71676f] transition hover:text-[#251926] sm:block">All BSC agents →</Link>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {categories.map((category, index) => {
-            const data = categoryResults[index].data;
-            return <Link key={category.label} href={`/discover?q=${encodeURIComponent(category.query)}`} className="group rounded-3xl border border-white/10 bg-white/[0.035] p-5 transition hover:-translate-y-1 hover:border-violet-200/35 hover:bg-white/[0.065]"><div className="flex items-center justify-between"><span className="text-3xl text-violet-200/80">0{index + 1}</span><span className="text-xs text-slate-500">{data.length ? `${data.length} found` : "Data loading"}</span></div><h3 className="mt-12 text-lg font-semibold text-white">{category.label}</h3><p className="mt-2 text-sm leading-6 text-slate-400">{category.note}</p></Link>;
+        <div className="divide-y divide-[#d8d0c8]">
+          {outcomes.map((outcome, index) => {
+            const result = outcomeResults[index];
+            const count = result.data.length;
+            return (
+              <Link key={outcome.label} href={`/discover?q=${encodeURIComponent(outcome.query)}`} className="group grid gap-3 py-6 transition hover:pl-2 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)_auto] sm:items-center">
+                <h3 className="text-lg font-semibold text-[#251926]">{outcome.label}</h3>
+                <p className="text-sm leading-6 text-[#71676f]">{outcome.note}</p>
+                <span className="text-sm text-[#5d315f]">{result.success ? (count ? "View source matches" : "No indexed match") : "Source unavailable"} <span className="ml-2 transition group-hover:translate-x-1">→</span></span>
+              </Link>
+            );
           })}
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-6 pb-28 lg:px-10">
-        <div className="mb-7 flex items-end justify-between gap-6"><div><p className="text-xs font-semibold uppercase tracking-[0.3em] text-slate-500">Live from 8004scan</p><h2 className="mt-3 text-3xl font-semibold tracking-[-0.045em] text-white">Recently indexed on BSC.</h2></div><span className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-3 py-1.5 text-xs text-emerald-200">Source connected</span></div>
-        {!hasData ? <div className="rounded-3xl border border-amber-200/20 bg-amber-200/5 p-8 text-sm text-amber-100">The live agent source is temporarily unavailable. Noria is not showing placeholder records.</div> : <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{latest.data.map((agent) => <AgentCard key={agent.id} agent={agent} />)}</div>}
+        <div className="mb-7 flex items-end justify-between gap-6">
+          <div>
+            <h2 className="text-3xl font-semibold tracking-[-0.035em] text-[#251926]">Recently indexed on BSC</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-[#71676f]">The current BSC records returned by 8004scan for chain ID 56. Noria does not infer activity from index presence.</p>
+          </div>
+          <span className={latest.success ? "border border-[#b9cec4] bg-[#edf5f0] px-3 py-1.5 text-xs font-semibold text-[#335f4d]" : "border border-[#d7bd8c] bg-[#fff6df] px-3 py-1.5 text-xs font-semibold text-[#765b24]"}>{latest.success ? "Source connected" : "Source unavailable"}</span>
+        </div>
+        {!latest.success ? (
+          <div className="border border-[#d7bd8c] bg-[#fff6df] p-8 text-sm text-[#765b24]">The live agent source is unavailable. Noria is not substituting placeholder records.</div>
+        ) : !latest.data.length ? (
+          <div className="border border-[#d8d0c8] bg-[#faf8f3] p-8 text-sm text-[#71676f]">The source responded successfully but returned no BSC records.</div>
+        ) : (
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{latest.data.map((agent) => <AgentCard key={agent.id} agent={agent} />)}</div>
+        )}
       </section>
-      <footer className="border-t border-white/10 px-6 py-8 text-center text-xs text-slate-600">Noria reads live agent identity and activity data. Missing evidence stays missing.</footer>
+
+      <footer className="border-t border-[#d8d0c8] px-6 py-8 text-center text-xs text-[#817780]">Noria reads indexed agent identity and source evidence. Missing evidence stays missing.</footer>
     </main>
   );
 }

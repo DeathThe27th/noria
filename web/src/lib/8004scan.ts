@@ -16,6 +16,7 @@ export type AgentRecord = {
   name: string;
   description: string | null;
   image_url: string | null;
+  agent_type?: string | null;
   is_verified: boolean;
   star_count: number;
   watch_count?: number;
@@ -63,6 +64,13 @@ type ApiResponse<T> = {
   };
 };
 
+export class AgentSourceError extends Error {
+  constructor(public readonly status: number, message: string) {
+    super(message);
+    this.name = "AgentSourceError";
+  }
+}
+
 async function request<T>(path: string): Promise<ApiResponse<T>> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 15_000);
@@ -73,10 +81,10 @@ async function request<T>(path: string): Promise<ApiResponse<T>> {
       cache: "no-store",
     });
     if (!response.ok) {
-      throw new Error(`8004scan returned ${response.status}`);
+      throw new AgentSourceError(response.status, `8004scan returned ${response.status}`);
     }
     const payload = (await response.json()) as ApiResponse<T>;
-    if (!payload.success) throw new Error("8004scan marked the request unsuccessful");
+    if (!payload.success) throw new AgentSourceError(502, "8004scan marked the request unsuccessful");
     return payload;
   } finally {
     clearTimeout(timeout);
@@ -99,6 +107,14 @@ export async function getAgent(chainId: number, tokenId: string) {
 
 export function agentSourceUrl() {
   return `${EIGHT4SCAN_BASE}/agents?chain=${BSC_CHAIN_ID}`;
+}
+
+export function agentApiUrl(chainId: number, tokenId: string) {
+  return `${EIGHT4SCAN_BASE}/api/v1/public/agents/${chainId}/${encodeURIComponent(tokenId)}`;
+}
+
+export function bscTransactionUrl(hash: string) {
+  return `https://bscscan.com/tx/${encodeURIComponent(hash)}`;
 }
 
 export function shortAddress(address: string | null | undefined) {

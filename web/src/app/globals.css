@@ -1,26 +1,45 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0d0912;
-  --foreground: #f5f1fa;
+  --paper: #f1eee7;
+  --paper-raised: #faf8f3;
+  --ink: #251926;
+  --muted: #71676f;
+  --rule: #d8d0c8;
+  --plum: #5d315f;
+  --plum-soft: #e9dfea;
+  --green: #335f4d;
+  --amber: #765b24;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--paper);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-noria);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 * { box-sizing: border-box; }
-html { background: var(--background); }
+html { background: var(--paper); scroll-behavior: smooth; }
 body {
   margin: 0;
+  min-height: 100vh;
   background:
-    radial-gradient(circle at 12% 0%, rgba(111, 59, 139, 0.22), transparent 29rem),
-    radial-gradient(circle at 86% 10%, rgba(68, 32, 89, 0.22), transparent 34rem),
-    var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    linear-gradient(rgba(93, 49, 95, 0.035) 1px, transparent 1px),
+    var(--paper);
+  background-size: 100% 4rem;
+  color: var(--ink);
+  font-family: var(--font-noria), sans-serif;
+  text-rendering: optimizeLegibility;
 }
-::selection { background: rgba(207, 162, 255, 0.28); }
+
+::selection { background: #d8bfd9; color: #251926; }
+:focus-visible { outline: 2px solid var(--plum); outline-offset: 3px; }
+a { text-underline-offset: 0.22em; }
+button, input { font: inherit; }
+button:disabled { cursor: not-allowed; }
+
+* { scrollbar-width: thin; scrollbar-color: #9e8f9f #ebe6df; }
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: #ebe6df; }
+*::-webkit-scrollbar-thumb { background: #9e8f9f; border: 2px solid #ebe6df; border-radius: 999px; }
