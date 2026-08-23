@@ -9,6 +9,15 @@ const manrope = localFont({
   weight: "200 800",
 });
 
+const dmSerif = localFont({
+  src: [
+    { path: "../../public/fonts/dmserif-regular.ttf", weight: "400", style: "normal" },
+    { path: "../../public/fonts/dmserif-italic.ttf", weight: "400", style: "italic" },
+  ],
+  variable: "--font-noria-editorial",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Noria — Discover autonomous agents",
   description: "Find, compare, and understand autonomous agents on BNB Smart Chain.",
@@ -24,7 +33,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 */
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={manrope.variable}>
+    <html lang="en" className={`${manrope.variable} ${dmSerif.variable}`}>
       <body data-impeccable-direction="e81ba8fb">{children}</body>
     </html>
   );

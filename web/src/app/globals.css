@@ -16,6 +16,7 @@
   --color-background: var(--paper);
   --color-foreground: var(--ink);
   --font-sans: var(--font-noria);
+  --font-editorial: var(--font-noria-editorial);
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
