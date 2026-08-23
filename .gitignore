@@ -9,3 +9,7 @@ dist/
 .DS_Store
 
 supabase/.temp/
+.reference/
+.impeccable/video-review/
+record_pc.mjs
+web/record_pc.mjs

@@ -1,64 +1,18 @@
 import Link from "next/link";
-import { AgentCard } from "@/components/agent-card";
-import { AgentLandscape } from "@/components/agent-landscape";
-import { Concierge } from "@/components/concierge";
-import { FloatingNav } from "@/components/floating-nav";
+import { ArrowDownRight, ArrowRight } from "lucide-react";
+import { AgentField3D } from "@/components/agent-field-3d";
+import { AiSearchButton } from "@/components/ai-search-modal";
+import { NoriaMark } from "@/components/noria-mark";
+import { Gallery4, type Gallery4Item } from "@/components/ui/gallery4";
 import { getAgents } from "@/lib/8004scan";
 
-const outcomes = [
-  { label: "Rebalancing", query: "rebalancing" },
-  { label: "Grid trading", query: "grid trading" },
-  { label: "Yield", query: "yield" },
-  { label: "Health factor", query: "health factor" },
-];
+const categoryImages=["/gallery/agent-1.svg","/gallery/agent-2.svg","/gallery/agent-3.svg","/gallery/agent-4.svg","/gallery/agent-5.svg","/gallery/agent-6.svg"];
+const categories=[{name:"Rebalancing",q:"rebalancing"},{name:"Grid trading",q:"grid trading"},{name:"Yield",q:"yield"},{name:"Health checks",q:"health factor"}];
 
-export default async function Home() {
-  const [latest, ...outcomeResults] = await Promise.all([
-    getAgents({ limit: 6 }).catch(() => ({ success: false, data: [], meta: undefined })),
-    ...outcomes.map((outcome) => getAgents({ query: outcome.query, limit: 4 }).catch(() => ({ success: false, data: [], meta: undefined }))),
-  ]);
-  const featured = latest.data[0];
-  const totalRecords = latest.meta?.pagination?.total;
-
-  return (
-    <main className="overflow-hidden bg-[#f1eee7] text-[#182642]">
-      <section className="relative min-h-[900px] overflow-hidden bg-[#123e82] bg-cover bg-center text-white" style={{ backgroundImage: "url('/noria-atmosphere.svg')" }}>
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,26,62,.12),rgba(14,49,99,.02)_48%,rgba(8,32,73,.48))]" />
-        <div className="relative z-10 mx-auto min-h-[900px] max-w-[1320px] px-5 pb-36 sm:px-8 lg:px-10">
-          <header className="flex items-center justify-between py-8">
-            <Link href="/" className="font-editorial text-3xl italic tracking-[-0.05em] text-white">noria</Link>
-            <div className="hidden items-center gap-7 text-xs text-white/75 sm:flex"><Link href="#landscape" className="hover:text-white">The field</Link><Link href="#evidence" className="hover:text-white">Evidence</Link><Link href="/discover" className="hover:text-white">Agents</Link></div>
-            <Link href="/discover" className="rounded-full border border-white/35 bg-white/10 px-4 py-2 text-xs text-white backdrop-blur-sm transition hover:bg-white hover:text-[#123e82]">Enter Noria</Link>
-          </header>
-
-          <div className="relative flex min-h-[700px] flex-col items-center pt-20 text-center sm:pt-24">
-            <p className="font-mono text-[10px] uppercase tracking-[0.28em] text-white/65">Autonomous intelligence · BNB Smart Chain</p>
-            <h1 className="mt-7 max-w-5xl font-editorial text-7xl leading-[.86] tracking-[-0.045em] sm:text-[8.5rem]">Find the agent for the move ahead.</h1>
-            <p className="mt-8 max-w-lg text-base leading-7 text-white/75 sm:text-lg">Describe the outcome. Noria maps the indexed field, explains the evidence, and helps you choose.</p>
-            <div className="mt-10 w-full max-w-2xl text-left"><Concierge /></div>
-            <AgentLandscape agents={latest.data} />
-          </div>
-        </div>
-        <FloatingNav />
-      </section>
-
-      <section id="evidence" className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8 lg:px-10 lg:py-36">
-        <div className="grid gap-14 lg:grid-cols-[.9fr_1.1fr] lg:items-start">
-          <div><p className="font-mono text-[10px] uppercase tracking-[0.24em] text-[#6d6070]">A legible agent economy</p><h2 className="mt-6 max-w-xl font-editorial text-6xl leading-[.9] tracking-[-0.04em] text-[#182642] sm:text-8xl">The right agent should not feel like a research project.</h2></div>
-          <div className="grid gap-10 border-t border-[#c9c0c4] pt-6 sm:grid-cols-3 lg:pt-0 lg:pl-10 lg:border-l lg:border-t-0"><div><p className="font-editorial text-4xl text-[#5d315f]">01</p><h3 className="mt-6 text-lg font-semibold">Intent</h3><p className="mt-3 text-sm leading-6 text-[#71676f]">Say what you want to happen. Noria translates the mandate into a search.</p></div><div><p className="font-editorial text-4xl text-[#5d315f]">02</p><h3 className="mt-6 text-lg font-semibold">Evidence</h3><p className="mt-3 text-sm leading-6 text-[#71676f]">Inspect identity, interfaces, activity, and missing fields from the source.</p></div><div><p className="font-editorial text-4xl text-[#5d315f]">03</p><h3 className="mt-6 text-lg font-semibold">Choice</h3><p className="mt-3 text-sm leading-6 text-[#71676f]">Compare the tradeoffs before a wallet ever gets asked to approve.</p></div></div>{featured ? <Link href={`/agents/${featured.chain_id}/${featured.token_id}`} className="mt-10 block border-t border-[#c9c0c4] pt-5 text-sm text-[#5d315f] transition hover:text-[#182642]">Featured source record: <strong>{featured.name}</strong> →</Link> : <p className="mt-10 border-t border-[#c9c0c4] pt-5 text-sm text-[#765b24]">Featured source record unavailable.</p>}
-        </div>
-      </section>
-
-      <section id="landscape" className="relative overflow-hidden bg-[#071a3b] px-5 py-24 text-white sm:px-8 lg:px-10 lg:py-36">
-        <div className="mx-auto max-w-[1320px]">
-          <div className="flex flex-col justify-between gap-8 border-b border-white/20 pb-8 sm:flex-row sm:items-end"><div><p className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/55">The indexed field</p><h2 className="mt-5 max-w-3xl font-editorial text-6xl leading-[.86] tracking-[-0.04em] sm:text-8xl">Move through the categories.</h2></div><p className="max-w-xs text-sm leading-6 text-white/60">Four required outcomes. One place to see what is declared, what is evidenced, and what is still unknown.</p></div>
-          <div className="mt-16 grid divide-y divide-white/15 border-b border-white/15 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">{outcomes.map((outcome, index) => <Link key={outcome.label} href={`/discover?q=${encodeURIComponent(outcome.query)}`} className="group px-0 py-7 sm:px-6 lg:px-8 lg:first:pl-0"><span className="font-mono text-[10px] text-white/45">0{index + 1}</span><h3 className="mt-16 font-editorial text-4xl tracking-[-0.025em] text-white transition group-hover:text-[#cde7ef]">{outcome.label}</h3><span className="mt-5 block text-xs text-white/55 transition group-hover:text-white">{outcomeResults[index].data.length ? "Explore indexed records →" : "No indexed record →"}</span></Link>)}</div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1320px] px-5 py-24 sm:px-8 lg:px-10 lg:py-32"><div className="flex items-end justify-between border-b border-[#bdb1b9] pb-6"><div><p className="font-mono text-[10px] uppercase tracking-[0.24em] text-[#6d6070]">Source records</p><h2 className="mt-4 font-editorial text-6xl leading-[.9] tracking-[-0.04em] text-[#182642] sm:text-8xl">Look closer.</h2></div>{totalRecords && <span className="hidden font-mono text-[10px] uppercase tracking-[0.15em] text-[#6d6070] sm:block">{new Intl.NumberFormat("en", { notation: "compact" }).format(totalRecords)} indexed on BSC</span>}</div>{!latest.success ? <div className="mt-8 border border-[#d7bd8c] bg-[#fff6df] p-8 text-sm text-[#765b24]">The live source is unavailable. Noria is not substituting placeholder records.</div> : <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">{latest.data.map((agent) => <AgentCard key={agent.id} agent={agent} />)}</div>}</section>
-
-      <footer className="border-t border-[#d8d0c8] px-5 py-10 text-center font-mono text-[10px] uppercase tracking-[0.16em] text-[#817780]">Noria reads indexed agent identity and source evidence. Missing evidence stays missing.</footer>
-    </main>
-  );
-}
+export default async function Home(){const latest=await getAgents({limit:8}).catch(()=>({success:false,data:[],meta:undefined}));const total=latest.meta?.pagination?.total;const gallery:Gallery4Item[]=latest.data.slice(0,6).map((agent,i)=>({id:agent.id,title:agent.name,description:agent.description||"This agent has not added a description yet.",href:`/agents/${agent.chain_id}/${agent.token_id}`,image:categoryImages[i%categoryImages.length],eyebrow:`BSC · #${agent.token_id}`}));return <main className="min-h-screen bg-[radial-gradient(circle_at_68%_3%,#dff7ff_0,#9ac8e9_26%,#699bd2_54%,#376ab5_100%)] px-3 py-3 text-[#111] sm:px-6 sm:py-6 lg:px-10 lg:py-8"><div className="noria-scale mx-auto max-w-[1240px] overflow-hidden rounded-[38px] bg-white shadow-[0_40px_140px_rgba(5,26,68,.32)]">
+<section className="relative min-h-[850px] overflow-hidden rounded-[38px] bg-[#174db4] text-white"><div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_10%,rgba(159,205,255,.65),transparent_36%),linear-gradient(180deg,#245fce_0%,#174db4_62%,#123b8d_100%)]"/><header className="relative z-20 flex items-center justify-between px-7 py-7 sm:px-10 lg:px-14"><Link href="/" className="flex items-center gap-3 text-sm font-semibold"><span className="flex size-10 items-center justify-center rounded-full bg-white text-[#174db4]"><NoriaMark className="size-5"/></span><span>Noria</span></Link><div className="hidden items-center gap-7 text-xs text-white/65 sm:flex"><span>BSC agent index</span><span>{typeof total==="number"?`${total.toLocaleString()} records`:"Live source"}</span></div><AiSearchButton light/></header><div className="relative z-10 grid min-h-[680px] px-7 pt-10 sm:px-10 lg:grid-cols-[1.35fr_.65fr] lg:px-14 lg:pt-16"><div className="max-w-[720px]"><p className="text-[11px] font-semibold uppercase tracking-[.18em] text-white/55">Find, compare and save AI agents</p><h1 className="mt-6 font-editorial text-[clamp(5rem,10vw,9.5rem)] leading-[.78] tracking-[-.06em]">The agent index, made useful.</h1></div><div className="mt-8 flex items-start justify-between gap-6 lg:mt-40 lg:block"><p className="max-w-[260px] text-sm leading-7 text-white/72">Search real BSC agent records, check what they publish, compare the details and save the ones worth another look.</p><Link href="/discover" className="mt-7 inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#174db4] transition hover:scale-[1.03]">Browse agents <ArrowRight className="ml-2 size-4"/></Link></div></div><AgentField3D/><div className="absolute bottom-8 left-8 z-20 hidden items-center gap-3 text-[10px] uppercase tracking-[.16em] text-white/50 sm:flex"><span className="size-2 rounded-full bg-[#a9ffcb]"/>Real records from 8004scan</div></section>
+<section id="about" className="bg-white px-7 py-28 sm:px-10 lg:px-14 lg:py-40"><div className="grid gap-14 lg:grid-cols-[1.35fr_.65fr]"><h2 className="max-w-4xl font-editorial text-6xl leading-[.92] tracking-[-.05em] sm:text-8xl lg:text-[7rem]">There are thousands of agents. You only need the right one.</h2><div className="lg:pt-32"><p className="text-base leading-8 text-black/52">Noria turns a messy public index into a directory you can actually use. Every profile points back to the source, and blank fields stay blank.</p><Link href="/discover" className="mt-8 inline-flex items-center text-sm font-semibold text-[#2864ff]">See the directory <ArrowDownRight className="ml-2 size-4"/></Link></div></div><div className="mt-24 grid gap-5 md:grid-cols-3"><div className="min-h-[330px] overflow-hidden rounded-[32px] bg-[#b9f4d2] p-7"><p className="text-xs font-semibold uppercase tracking-[.14em] text-black/45">Find</p><h3 className="mt-5 max-w-xs text-3xl font-semibold tracking-[-.04em]">Search by what you want done.</h3><div className="mt-14 rounded-[24px] bg-white/75 p-5 shadow-xl"><p className="text-sm text-black/45">Try</p><p className="mt-2 font-medium">“Watch my Venus loan”</p></div></div><div className="min-h-[330px] overflow-hidden rounded-[32px] bg-[#ffb3c6] p-7"><p className="text-xs font-semibold uppercase tracking-[.14em] text-black/45">Check</p><h3 className="mt-5 max-w-xs text-3xl font-semibold tracking-[-.04em]">See what each agent has actually published.</h3><div className="mt-14 flex gap-2"><span className="rounded-full bg-white/70 px-4 py-2 text-xs">Identity</span><span className="rounded-full bg-white/70 px-4 py-2 text-xs">Protocols</span></div></div><div className="min-h-[330px] overflow-hidden rounded-[32px] bg-[#ffd86b] p-7"><p className="text-xs font-semibold uppercase tracking-[.14em] text-black/45">Compare</p><h3 className="mt-5 max-w-xs text-3xl font-semibold tracking-[-.04em]">Put the details side by side before you choose.</h3><div className="mt-16 flex items-end gap-2"><div className="h-16 flex-1 rounded-2xl bg-[#2864ff]"/><div className="h-28 flex-1 rounded-2xl bg-white/75"/><div className="h-20 flex-1 rounded-2xl bg-[#111]"/></div></div></div></section>
+<section className="overflow-hidden bg-[#0b1730] px-7 py-28 text-white sm:px-10 lg:px-14 lg:py-40"><div className="flex items-end justify-between gap-8"><div><p className="text-[10px] uppercase tracking-[.18em] text-white/42">Start with the job</p><h2 className="mt-5 font-editorial text-6xl tracking-[-.05em] sm:text-8xl">Four ways in.</h2></div><p className="hidden max-w-xs text-sm leading-7 text-white/48 md:block">These links search the live index. They are not performance rankings.</p></div><div className="mt-20 divide-y divide-white/12 border-y border-white/12">{categories.map((category,index)=><Link key={category.name} href={`/discover?q=${encodeURIComponent(category.q)}`} className="group flex items-center justify-between py-7"><div className="flex items-baseline gap-8"><span className="font-mono text-[10px] text-white/30">0{index+1}</span><span className="font-editorial text-5xl tracking-[-.04em] text-white/72 transition group-hover:translate-x-3 group-hover:text-white sm:text-7xl">{category.name}</span></div><ArrowRight className="size-6 text-white/25 transition group-hover:text-[#a9ffcb]"/></Link>)}</div></section>
+{gallery.length>0?<Gallery4 items={gallery}/>:<section className="bg-white p-20 text-center text-black/50">The agent source is unavailable right now.</section>}
+<footer className="bg-white px-7 pb-28 pt-12 sm:px-10 lg:px-14"><div className="flex flex-col gap-8 rounded-[32px] bg-[#f2f5f9] p-8 sm:flex-row sm:items-center sm:justify-between"><div className="flex items-center gap-3"><span className="flex size-11 items-center justify-center rounded-full bg-[#2864ff] text-white"><NoriaMark className="size-5"/></span><div><p className="font-semibold">Noria</p><p className="text-xs text-black/45">Real BSC agent records, easier to use.</p></div></div><div className="flex gap-5 text-sm text-black/50"><Link href="/discover">Agents</Link><Link href="/compare">Compare</Link><Link href="/missions">Missions</Link></div></div></footer>
+</div></main>}

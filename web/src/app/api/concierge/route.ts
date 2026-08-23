@@ -58,7 +58,7 @@ export async function POST(request: Request) {
   let body: unknown = null;
   try { body = JSON.parse(rawBody); } catch { body = null; }
   const checked = requestSchema.safeParse(body);
-  if (!checked.success) return NextResponse.json({ success: false, error: "Describe the outcome in 3–800 characters." }, { status: 400 });
+  if (!checked.success) return NextResponse.json({ success: false, error: "Tell us what you need in 3–800 characters." }, { status: 400 });
 
   try {
     const ai = new GoogleGenAI({ apiKey: key, httpOptions: { timeout: 15_000 } });

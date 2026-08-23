@@ -1,46 +1,27 @@
-# Noria Design System
+# Noria design direction
 
-## Direction
+The latest 45-second video supplied by the user is the only visual reference for this surface. Older Noria work and MonSkills do not carry forward.
 
-Noria follows the supplied video reference: a cinematic, contained agent-intelligence environment rather than a conventional dashboard. The atmosphere creates the world; the product remains precise inside it.
+## Shape and framing
 
-## Palette
+The site sits inside a rounded canvas over an atmospheric blue sky. The opening chapter is cobalt. Every product surface is white or a deliberate color field. Panels, inputs, navigation, tables and controls use smooth rounded geometry. Square cards and the old bone background are not part of this system.
 
-- Deep cobalt: `#123E82`
-- Aerial blue: `#8FB9E4`
-- Cloud ivory: `#F5F1E8`
-- Midnight ink: `#182642`
-- Plum accent: `#5D315F`
-- Muted source text: `#71676F`
+## Brand
 
-## Typography
+Noria uses a four-point star mark. The lowercase wordmark is no longer the primary logo. The mark appears in a circular cobalt or white holder.
 
-- Editorial display and wordmark: self-hosted DM Serif Display, including italic.
-- Product UI, evidence, navigation, and controls: self-hosted Manrope variable font, weights 200–800.
-- Monospace is reserved for token IDs, addresses, chain records, and measurements.
+## Type
 
-## Composition and motion
+DM Serif Display handles the large editorial statements. Manrope handles product copy, navigation, lists, controls and metadata. Copy should sound like a person wrote it: short, direct and specific. Avoid words like mandate, provenance, intelligence layer, decision engine and activation path in user-facing UI.
 
-- Full atmospheric hero with a contained cinematic viewport feeling.
-- Persistent floating pill navigation.
-- Large editorial headline and mandate instrument.
-- The indexed field becomes a soft terrain with real agent-derived points rather than decorative fake metrics.
-- Scroll moves from hero to proof/evidence, then to a deep-blue category universe, then to source records.
-- Motion is sparse and purposeful: agent points pulse slowly, sections transform through scale/space, and reduced-motion users receive a static field.
+## Motion
 
-## Product surfaces
+The hero uses a real WebGL point field. It moves slowly and responds to elapsed time without representing fake activity. The black pill navigation stays fixed. The lower horizontal agent gallery uses Embla drag, arrow controls and slide dots. Hover motion is restrained: small scaling, arrow travel and color changes. Reduced-motion users get static states.
 
-- Agent cards read as indexed records with source IDs, chain standard, published description, evidence labels, source JSON, compare action, and Passport action.
-- Agent Passports use provenance tables and declared-interface states.
-- Comparison Lab uses a ruled decision table rather than a generic card wall.
-- Mission Builder makes objective, expiry, spend limit, and wallet approval explicit; draft state never implies execution.
-- Wallet connection is user-controlled and BSC-specific.
+## Product layout
 
-## Truth and state
+The agent directory is a compact list, not a card grid. AI search opens in a modal from the Ask Noria button. Agent profiles, comparisons and mission pages use the same white rounded system. “Look closer” is a colorful horizontal carousel built from real indexed agents; the photography is decorative and does not claim to show the agent or its performance.
 
-- `Indexed` means present in 8004scan, not active or available.
-- Activity is `Reported active`, `Reported inactive`, or `Activity unknown`.
-- Source failures and successful empty results are distinct states.
-- Only endpoints explicitly verified by 8004scan become clickable; other HTTPS endpoints are shown as unverified hosts.
-- Relevance measures exact normalized tokens in published source fields; it is never framed as performance.
-- Missing evidence remains visibly missing.
+## Truth rules
+
+Indexed means present in 8004scan, not active or available. AI helps structure a search but does not create facts. Missing details remain missing. Wallet connection does not imply execution. Saved mission drafts do not imply that anything ran or that money moved.

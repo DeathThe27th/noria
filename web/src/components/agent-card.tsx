@@ -1,58 +1,7 @@
 import Link from "next/link";
+import { ArrowUpRight, CheckCircle2, CircleDot } from "lucide-react";
 import type { AgentRecord } from "@/lib/8004scan";
 import { CompareButton } from "@/components/compare-provider";
-import { agentApiUrl, formatDate, shortAddress } from "@/lib/8004scan";
+import { formatDate, shortAddress } from "@/lib/8004scan";
 
-function evidenceLabel(agent: AgentRecord) {
-  if (agent.is_verified) return "Verified identity";
-  if (agent.total_feedbacks > 0) return `${agent.total_feedbacks} feedback records`;
-  if (agent.created_tx_hash) return "Onchain registration";
-  return "Identity indexed";
-}
-
-export function AgentCard({ agent, relevance, matchReason }: { agent: AgentRecord; relevance?: number; matchReason?: string }) {
-  const categories = agent.categories?.filter(Boolean) ?? [];
-  const protocols = agent.supported_protocols?.filter(Boolean) ?? [];
-  const labels = (categories.length ? categories : protocols.length ? protocols : ["Metadata indexed"]).slice(0, 3);
-
-  return (
-    <article className="group flex min-h-[330px] flex-col justify-between border border-[#d8d0c8] bg-[#faf8f3] p-5 shadow-[0_18px_55px_rgba(45,25,45,.07)] transition duration-300 hover:-translate-y-1 hover:border-[#a88baa] hover:shadow-[0_24px_65px_rgba(45,25,45,.11)]">
-      <div>
-        <div className="flex items-start justify-between gap-4 border-b border-[#ded7cf] pb-4">
-          <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[#8c8089]">Lot {agent.token_id}</p>
-            <p className="mt-1 font-mono text-[10px] text-[#9a9098]">BSC · ERC-8004</p>
-          </div>
-          <div className="flex flex-wrap items-center justify-end gap-2">
-            {typeof relevance === "number" && <span className="border border-[#cdbdce] bg-[#f3eaf4] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#5d315f]">{relevance}% relevance</span>}
-            <span className="border border-[#b9cec4] bg-[#edf5f0] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-[#335f4d]">BSC indexed</span>
-          </div>
-        </div>
-
-        <h3 className="mt-5 line-clamp-1 text-xl font-semibold tracking-[-0.03em] text-[#251926]">{agent.name}</h3>
-        <p className="mt-2 line-clamp-3 min-h-[4.5rem] text-sm leading-6 text-[#71676f]">{agent.description || "This agent has not published a description yet."}</p>
-        {matchReason && <p className="mt-4 text-xs leading-5 text-[#5d315f]">{matchReason}</p>}
-
-        <div className="mt-5 flex flex-wrap gap-2">
-          {labels.map((item) => <span key={item} className="border border-[#d8d0c8] bg-white px-2.5 py-1 text-xs text-[#655b63]">{item}</span>)}
-          {agent.x402_supported && <span className="border border-[#d6c49f] bg-[#fff6df] px-2.5 py-1 text-xs text-[#765b24]">x402</span>}
-        </div>
-      </div>
-
-      <div className="mt-7 border-t border-[#d8d0c8] pt-4">
-        <div className="flex items-center justify-between gap-4 text-xs text-[#827780]">
-          <span>{evidenceLabel(agent)}</span>
-          <time dateTime={agent.updated_at}>{formatDate(agent.updated_at)}</time>
-        </div>
-        <div className="mt-4 flex items-center justify-between gap-3">
-          <span className="font-mono text-[11px] tabular-nums text-[#8c8089]">{shortAddress(agent.owner_address)}</span>
-          <div className="flex items-center gap-3">
-            <a href={agentApiUrl(agent.chain_id, agent.token_id)} target="_blank" rel="noreferrer" className="text-xs text-[#71676f] underline decoration-[#c7bcc5] transition hover:text-[#251926]">Source</a>
-            <CompareButton agent={agent} />
-            <Link href={`/agents/${agent.chain_id}/${agent.token_id}`} className="bg-[#251926] px-3.5 py-2 text-xs font-semibold text-white transition hover:bg-[#5d315f]">Passport →</Link>
-          </div>
-        </div>
-      </div>
-    </article>
-  );
-}
+export function AgentCard({agent,relevance,matchReason}:{agent:AgentRecord;relevance?:number;matchReason?:string}){const labels=(agent.categories?.filter(Boolean).length?agent.categories:agent.supported_protocols?.filter(Boolean).length?agent.supported_protocols:["No category added"]).slice(0,3);return <article className="group rounded-[26px] border border-black/7 bg-white p-5 transition duration-300 hover:border-[#2864ff]/25 hover:shadow-[0_18px_55px_rgba(35,83,180,.10)] sm:p-6"><div className="flex flex-col gap-5 sm:flex-row sm:items-center"><div className="flex size-14 shrink-0 items-center justify-center rounded-[18px] bg-gradient-to-br from-[#dce7ff] to-[#b9f4d2] text-[#1d4fc0]"><CircleDot className="size-6"/></div><div className="min-w-0 flex-1"><div className="flex flex-wrap items-center gap-2"><h3 className="truncate text-lg font-semibold tracking-[-.025em] text-[#151515]">{agent.name}</h3>{agent.is_verified&&<CheckCircle2 className="size-4 text-[#2864ff]"/>}{typeof relevance==="number"&&<span className="rounded-full bg-[#eef2ff] px-2.5 py-1 text-[10px] font-semibold text-[#2864ff]">{relevance}% match</span>}</div><p className="mt-1 line-clamp-1 text-sm text-black/48">{agent.description||"This agent has not added a description yet."}</p>{matchReason&&<p className="mt-2 text-xs text-[#2864ff]">{matchReason}</p>}<div className="mt-3 flex flex-wrap gap-2">{labels.map(label=><span key={label} className="rounded-full bg-[#f3f5f8] px-3 py-1 text-[11px] text-black/50">{label}</span>)}</div></div><div className="flex shrink-0 items-center justify-between gap-4 sm:justify-end"><div className="hidden text-right lg:block"><p className="font-mono text-[10px] text-black/35">#{agent.token_id}</p><p className="mt-1 text-[11px] text-black/40">{formatDate(agent.updated_at)}</p><p className="mt-1 font-mono text-[10px] text-black/30">{shortAddress(agent.owner_address)}</p></div><CompareButton agent={agent}/><Link href={`/agents/${agent.chain_id}/${agent.token_id}`} className="flex size-11 items-center justify-center rounded-full bg-[#111] text-white transition group-hover:bg-[#2864ff]" aria-label={`Open ${agent.name}`}><ArrowUpRight className="size-4"/></Link></div></div></article>}

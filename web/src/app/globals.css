@@ -1,53 +1,14 @@
 @import "tailwindcss";
 
-:root {
-  --paper: #f1eee7;
-  --paper-raised: #faf8f3;
-  --ink: #251926;
-  --muted: #71676f;
-  --rule: #d8d0c8;
-  --plum: #5d315f;
-  --plum-soft: #e9dfea;
-  --green: #335f4d;
-  --amber: #765b24;
-}
-
-@theme inline {
-  --color-background: var(--paper);
-  --color-foreground: var(--ink);
-  --font-sans: var(--font-noria);
-  --font-editorial: var(--font-noria-editorial);
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-}
-
-* { box-sizing: border-box; }
-html { background: var(--paper); scroll-behavior: smooth; }
-body {
-  margin: 0;
-  min-height: 100vh;
-  background:
-    linear-gradient(rgba(93, 49, 95, 0.035) 1px, transparent 1px),
-    var(--paper);
-  background-size: 100% 4rem;
-  color: var(--ink);
-  font-family: var(--font-noria), sans-serif;
-  text-rendering: optimizeLegibility;
-}
-
-::selection { background: #d8bfd9; color: #251926; }
-:focus-visible { outline: 2px solid var(--plum); outline-offset: 3px; }
-a { text-underline-offset: 0.22em; }
-button, input { font: inherit; }
-button:disabled { cursor: not-allowed; }
-
-* { scrollbar-width: thin; scrollbar-color: #9e8f9f #ebe6df; }
-*::-webkit-scrollbar { width: 10px; height: 10px; }
-*::-webkit-scrollbar-track { background: #ebe6df; }
-*::-webkit-scrollbar-thumb { background: #9e8f9f; border: 2px solid #ebe6df; border-radius: 999px; }
-
-@keyframes agent-pulse {
-  0%, 100% { transform: translateY(0) scale(.75); opacity: .45; }
-  50% { transform: translateY(-10px) scale(1); opacity: 1; }
-}
-.agent-pulse { animation: agent-pulse 3.2s ease-in-out infinite; }
-@media (prefers-reduced-motion: reduce) { .agent-pulse { animation: none; } }
+:root{--background:#fff;--foreground:#111;--blue:#2864ff;--navy:#0b1730;--muted:#667085;--line:rgba(17,17,17,.09)}
+@theme inline{--color-background:var(--background);--color-foreground:var(--foreground);--font-sans:var(--font-noria);--font-editorial:var(--font-noria-editorial);--font-mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
+*{box-sizing:border-box}
+html{background:#fff;scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:#fff;color:#111;font-family:var(--font-noria),sans-serif;text-rendering:optimizeLegibility}
+::selection{background:#b8ccff;color:#091c45}
+:focus-visible{outline:2px solid #2864ff;outline-offset:3px}
+a{text-underline-offset:.22em}button,input,textarea,select{font:inherit}button:disabled{cursor:not-allowed}
+*{scrollbar-width:thin;scrollbar-color:#8fa8df #eef2f8}*::-webkit-scrollbar{width:9px;height:9px}*::-webkit-scrollbar-track{background:#eef2f8}*::-webkit-scrollbar-thumb{background:#8fa8df;border:2px solid #eef2f8;border-radius:999px}
+@media(min-width:1280px){.noria-scale{zoom:.82}}
+@media(max-width:1279px){.noria-scale{width:100%}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}

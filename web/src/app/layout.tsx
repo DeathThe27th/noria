@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { CompareProvider } from "@/components/compare-provider";
+import { FloatingNav } from "@/components/floating-nav";
 import "./globals.css";
 
 const manrope = localFont({
@@ -25,17 +26,17 @@ export const metadata: Metadata = {
 };
 
 /*
-THESIS: Atmospheric financial intelligence for autonomous-agent discovery; refuse the generic crypto dashboard.
-OWN-WORLD: Cobalt sky, pale cloud, editorial serif wordmark, floating capsule navigation, ivory utility panels, and precise Manrope metadata.
-STORY: State the outcome, scan the horizon of indexed agents, inspect provenance, and choose the next move with evidence.
-FIRST VIEWPORT: Full-bleed atmospheric field; capsule nav above centered noria wordmark, mandate search, and a real featured record below.
-FORM: Operate direction, Anything × Airside motion language, video reference supplied by user, seed e81ba8fb.
-FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+THESIS: A clear, useful index for BSC agents, presented as a cinematic digital product rather than a crypto dashboard.
+OWN-WORLD: White canvas, cobalt WebGL field, black floating pill navigation, four-point star mark, rounded surfaces, bright color chapters and editorial display type.
+STORY: Search the directory, open an agent, compare what it has published and save a job for later.
+FIRST VIEWPORT: A contained cobalt panel inside a sky environment, with a large statement, simple directory action and WebGL dot field. AI search opens from a button.
+FORM: Latest user-supplied 45-second video is the sole visual reference. Older Noria and MonSkills directions are superseded.
+FINISH: one bounded local gate, desktop/mobile capture and real route verification before shipping.
 */
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${manrope.variable} ${dmSerif.variable}`}>
-      <body data-impeccable-direction="e81ba8fb"><CompareProvider>{children}</CompareProvider></body>
+      <body data-impeccable-direction="video-reference-2026"><CompareProvider>{children}<FloatingNav /></CompareProvider></body>
     </html>
   );
 }
