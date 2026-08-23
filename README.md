@@ -13,10 +13,14 @@ It helps users:
 
 The first build targets the BNB Smart Money Era hackathon and uses the official hackathon resources first, including BNB Agent Studio, 8004scan, BSC testnet infrastructure, and relevant partner tooling.
 
-## Principles
+## Backend setup
 
-- Real integrations and verified data only
-- No fabricated agent profiles, performance, transactions, or success states
-- AI explains and recommends; deterministic systems verify facts and enforce permissions
-- BNB-native onchain implementation
-- MonSkills-inspired frontend/UI craft
+The app uses the official 8004scan BSC agent source and Supabase for persisted agent records, evidence, comparisons, and mission data.
+
+```bash
+npm install
+npm run sync:agents
+npm run dev
+```
+
+`sync:agents` pulls the latest BSC index page plus the four hackathon outcome searches and upserts real records into Supabase. Secrets belong in `.env.local` and must never be committed.

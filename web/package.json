@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest run"
+    "test": "vitest run",
+    "sync:agents": "node --env-file=.env.local scripts/sync-8004scan.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.18.0",
