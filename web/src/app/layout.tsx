@@ -24,11 +24,11 @@ export const metadata: Metadata = {
 };
 
 /*
-THESIS: Agent discovery as an auction-house condition report; refuse the generic neon crypto dashboard.
-OWN-WORLD: Warm catalog paper, plum ink, ruled evidence tables, provenance stamps, and sparse solid controls.
-STORY: State the outcome, inspect live lots, compare published evidence, then activate with clear permission scope.
-FIRST VIEWPORT: Left-aligned proposition and evidence promise above one dominant intent instrument; browse remains secondary.
-FORM: Operate direction, assigned grounded candidate 4, seed e81ba8fb.
+THESIS: Atmospheric financial intelligence for autonomous-agent discovery; refuse the generic crypto dashboard.
+OWN-WORLD: Cobalt sky, pale cloud, editorial serif wordmark, floating capsule navigation, ivory utility panels, and precise Manrope metadata.
+STORY: State the outcome, scan the horizon of indexed agents, inspect provenance, and choose the next move with evidence.
+FIRST VIEWPORT: Full-bleed atmospheric field; capsule nav above centered noria wordmark, mandate search, and a real featured record below.
+FORM: Operate direction, Anything × Airside fusion, seed e81ba8fb.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
 */
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
