@@ -7,3 +7,5 @@ dist/
 !.env.example
 .vercel/
 .DS_Store
+
+supabase/.temp/
