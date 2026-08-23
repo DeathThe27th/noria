@@ -1,0 +1,10 @@
+import Link from "next/link";
+import { AgentCard } from "@/components/agent-card";
+import { getAgents } from "@/lib/8004scan";
+
+export default async function Discover({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
+  const params = await searchParams;
+  const query = params.q?.trim() ?? "";
+  const result = await getAgents({ query: query || undefined, limit: 40 }).catch(() => ({ success: false, data: [], meta: undefined }));
+  return <main className="min-h-screen px-6 py-8 lg:px-10"><div className="mx-auto max-w-7xl"><Link href="/" className="text-sm text-slate-400 hover:text-white">← Back to Noria</Link><div className="mt-16 flex flex-col justify-between gap-8 border-b border-white/10 pb-10 lg:flex-row lg:items-end"><div><p className="text-xs font-semibold uppercase tracking-[0.3em] text-violet-200/75">Agent discovery</p><h1 className="mt-3 text-5xl font-semibold tracking-[-0.06em] text-white">{query ? `Agents for “${query}”` : "Live agents on BSC"}</h1><p className="mt-4 max-w-2xl text-slate-400">Every card below comes from the live 8004scan public agent index. Noria does not fill gaps with invented profiles.</p></div><form action="/discover" className="flex w-full max-w-xl rounded-2xl border border-white/15 bg-white/[0.05] p-2"><input defaultValue={query} name="q" placeholder="Search by goal or capability" className="min-h-11 flex-1 bg-transparent px-3 text-sm text-white outline-none placeholder:text-slate-500"/><button className="rounded-xl bg-white px-4 text-sm font-semibold text-[#160d20]">Search</button></form></div><div className="mt-8 flex items-center justify-between text-sm text-slate-500"><span>{result.data.length} records returned</span><span>Chain: BNB Smart Chain · 56</span></div>{result.data.length ? <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">{result.data.map((agent) => <AgentCard key={agent.id} agent={agent}/>)}</div> : <div className="mt-8 rounded-3xl border border-amber-200/20 bg-amber-200/5 p-8 text-sm text-amber-100">No live records matched this request. Try a broader term.</div>}</div></main>;
+}
