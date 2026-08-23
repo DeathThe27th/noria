@@ -1,27 +1,32 @@
-# Noria design direction
+# Noria frontend direction
 
-The latest 45-second video supplied by the user is the only visual reference for this surface. Older Noria work and MonSkills do not carry forward.
+The live frontend at `https://nad-pay.vercel.app` is the authoritative structural and visual reference for Noria. Older homepage directions are superseded.
 
-## Shape and framing
+One exception is binding: keep Noria's existing black floating pill navbar unchanged.
 
-The site sits inside a rounded canvas over an atmospheric blue sky. The opening chapter is cobalt. Every product surface is white or a deliberate color field. Panels, inputs, navigation, tables and controls use smooth rounded geometry. Square cards and the old bone background are not part of this system.
+## System
 
-## Brand
+- Space Grotesk typography
+- Deep navy opening and feature chapters
+- Violet grid/ribbon background
+- Large centered white headline with a violet second line
+- Purple primary button and muted gray secondary button
+- Three widely spaced alternating feature stories with compact product mockups
+- Long navy-to-lavender gradient handoff
+- Light lavender infrastructure and closing sections
+- Dark navy footer
 
-Noria uses a four-point star mark. The lowercase wordmark is no longer the primary logo. The mark appears in a circular cobalt or white holder.
+## Noria translation
 
-## Type
+Payroll content is replaced with Noria's real BSC agent product:
 
-DM Serif Display handles the large editorial statements. Manrope handles product copy, navigation, lists, controls and metadata. Copy should sound like a person wrote it: short, direct and specific. Avoid words like mandate, provenance, intelligence layer, decision engine and activation path in user-facing UI.
+- Live 8004scan agent records
+- AI-assisted agent search
+- Agent shortlists and comparison
+- Agent profiles, saved jobs and wallet connection
 
-## Motion
+Product mockups use real returned agent names and token IDs. They do not invent activity, performance or execution.
 
-The hero uses a real WebGL point field. It moves slowly and responds to elapsed time without representing fake activity. The black pill navigation stays fixed. The lower horizontal agent gallery uses Embla drag, arrow controls and slide dots. Hover motion is restrained: small scaling, arrow travel and color changes. Reduced-motion users get static states.
+## Responsive behavior
 
-## Product layout
-
-The agent directory is a compact list, not a card grid. AI search opens in a modal from the Ask Noria button. Agent profiles, comparisons and mission pages use the same white rounded system. “Look closer” is a colorful horizontal carousel built from real indexed agents; the photography is decorative and does not claim to show the agent or its performance.
-
-## Truth rules
-
-Indexed means present in 8004scan, not active or available. AI helps structure a search but does not create facts. Missing details remain missing. Wallet connection does not imply execution. Saved mission drafts do not imply that anything ran or that money moved.
+Desktop uses centered hero copy and alternating two-column stories. Mobile stacks each story, keeps the large type and full-width pill actions, and retains the black Noria navbar. All working product pages use the same lavender and violet accents.

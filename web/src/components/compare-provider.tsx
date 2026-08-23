@@ -42,12 +42,12 @@ export function CompareButton({ agent }: { agent: AgentRecord }) {
   const context = useContext(CompareContext);
   if (!context) return null;
   const selected = context.agents.some((item) => item.id === agent.id);
-  return <button type="button" onClick={() => context.toggle(agent)} className={selected ? "rounded-full bg-[#eef2ff] px-4 py-2.5 text-xs font-semibold text-[#2864ff]" : "rounded-full bg-[#f3f5f8] px-4 py-2.5 text-xs text-black/50 transition hover:bg-[#e7ecf4] hover:text-[#111]"}>{selected ? "Added" : "Compare"}</button>;
+  return <button type="button" onClick={() => context.toggle(agent)} className={selected ? "rounded-full bg-[#eef2ff] px-4 py-2.5 text-xs font-semibold text-[#7048ed]" : "rounded-full bg-[#f3f5f8] px-4 py-2.5 text-xs text-black/50 transition hover:bg-[#e7ecf4] hover:text-[#111]"}>{selected ? "Added" : "Compare"}</button>;
 }
 
 function CompareTray() {
   const context = useContext(CompareContext);
   if (!context || !context.agents.length) return null;
   const ids = context.agents.map((agent) => agent.token_id).join(",");
-  return <div className="fixed bottom-20 left-1/2 z-40 flex w-[calc(100%-2rem)] max-w-xl -translate-x-1/2 items-center justify-between gap-4 rounded-full border border-black/8 bg-white/95 px-5 py-3 text-sm text-[#111] shadow-[0_20px_60px_rgba(10,20,45,.18)] backdrop-blur-md"><span><strong>{context.agents.length}</strong> selected</span><div className="flex items-center gap-3"><button type="button" onClick={context.clear} className="text-xs text-black/45">Clear</button><Link href={`/compare?ids=${ids}`} className="rounded-full bg-[#2864ff] px-4 py-2 text-xs font-semibold text-white">Compare →</Link></div></div>;
+  return <div className="fixed bottom-20 left-1/2 z-40 flex w-[calc(100%-2rem)] max-w-xl -translate-x-1/2 items-center justify-between gap-4 rounded-full border border-black/8 bg-white/95 px-5 py-3 text-sm text-[#111] shadow-[0_20px_60px_rgba(10,20,45,.18)] backdrop-blur-md"><span><strong>{context.agents.length}</strong> selected</span><div className="flex items-center gap-3"><button type="button" onClick={context.clear} className="text-xs text-black/45">Clear</button><Link href={`/compare?ids=${ids}`} className="rounded-full bg-[#7048ed] px-4 py-2 text-xs font-semibold text-white">Compare →</Link></div></div>;
 }
