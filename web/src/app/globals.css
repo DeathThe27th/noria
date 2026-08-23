@@ -44,3 +44,10 @@ button:disabled { cursor: not-allowed; }
 *::-webkit-scrollbar { width: 10px; height: 10px; }
 *::-webkit-scrollbar-track { background: #ebe6df; }
 *::-webkit-scrollbar-thumb { background: #9e8f9f; border: 2px solid #ebe6df; border-radius: 999px; }
+
+@keyframes agent-pulse {
+  0%, 100% { transform: translateY(0) scale(.75); opacity: .45; }
+  50% { transform: translateY(-10px) scale(1); opacity: 1; }
+}
+.agent-pulse { animation: agent-pulse 3.2s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .agent-pulse { animation: none; } }
