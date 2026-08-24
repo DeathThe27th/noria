@@ -46,14 +46,14 @@ export default async function AgentPassport({ params }: { params: Promise<{ chai
     : "rounded-full border border-black/8 bg-white px-4 py-2 text-sm font-semibold text-black/50";
 
   return (
-    <main className="min-h-screen bg-[#f5f2ff] px-5 pb-36 pt-6 text-[#111] sm:px-8">
+    <main className="y2k-grid min-h-screen bg-[linear-gradient(180deg,#91d2ff,#eefaff_55%,#d6d0ff)] px-5 pb-36 pt-6 text-[#111] sm:px-8">
       <div className="noria-scale mx-auto max-w-[1040px]">
         <div className="flex items-center justify-between rounded-full bg-[#f3f5f8] p-2 pl-4">
           <Link href="/" className="flex items-center gap-3 font-semibold"><span className="flex size-10 items-center justify-center rounded-full bg-[#7048ed] text-white"><NoriaMark className="size-5" /></span>Noria</Link>
           <div className="flex items-center gap-2"><Link href={`/missions/new?agent=${agent.token_id}`} className="rounded-full bg-[#111] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#7048ed]">Create job</Link><a href={sourceUrl} target="_blank" rel="noreferrer" className="hidden rounded-full bg-white px-5 py-3 text-sm font-semibold sm:block">Source ↗</a></div>
         </div>
 
-        <section className="mt-14 rounded-[32px] border border-black/8 bg-[#f6f8fb] p-7 shadow-[0_25px_70px_rgba(45,25,45,.08)] sm:p-10">
+        <section className="mt-14 y2k-window rounded-[20px] p-7 shadow-[0_25px_70px_rgba(45,25,45,.08)] sm:p-10">
           <div className="border-b border-black/8 pb-5 font-mono text-[10px] uppercase tracking-[0.12em] text-[#8c8089]">Agent profile · # {agent.token_id} · BSC mainnet</div>
           <div className="mt-7 flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
             <div>
@@ -68,9 +68,9 @@ export default async function AgentPassport({ params }: { params: Promise<{ chai
 
           <div className="mt-10 grid gap-px overflow-hidden rounded-[24px] border border-black/8 bg-[#d8d0c8] sm:grid-cols-2 lg:grid-cols-4">
             {[
-              ["Identity", agent.is_verified ? "Verified" : "Indexed"],
+              ["Feedback score", agent.total_feedbacks > 0 ? `${agent.average_score.toFixed(1)} / 5` : "Unrated"],
               ["Feedback", String(agent.total_feedbacks)],
-              ["Health", agent.health_status || "Not reported"],
+              ["Services", String(services.length)],
               ["Updated", formatDate(agent.updated_at)],
             ].map(([label, value]) => (
               <div key={label} className="bg-white p-4"><p className="text-xs text-[#8c8089]">{label}</p><p className="mt-2 text-sm font-semibold text-[#251926]">{value}</p></div>
@@ -78,8 +78,13 @@ export default async function AgentPassport({ params }: { params: Promise<{ chai
           </div>
         </section>
 
-        <div className="mt-5 grid gap-5 lg:grid-cols-[1.2fr_.8fr]">
-          <section className="rounded-[32px] border border-black/8 bg-[#f6f8fb] p-7">
+        <section className="mt-10">
+          <div className="flex items-end justify-between gap-4"><div><p className="text-xs font-semibold uppercase tracking-[.14em] text-[#7048ed]">Service catalog</p><h2 className="mt-2 text-3xl font-semibold tracking-[-.035em]">Services</h2></div><span className="text-xs text-black/45">Pricing not published</span></div>
+          <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{services.length ? services.map(({ name, endpoint, verified }) => <article key={name} className="y2k-window rounded-[15px] p-5"><div className="flex items-center justify-between"><h3 className="font-semibold">{name}</h3><span className={verified ? "rounded-full bg-[#e7f6ed] px-2.5 py-1 text-[10px] font-semibold text-[#2d6d4a]" : "rounded-full bg-[#f0edf9] px-2.5 py-1 text-[10px] text-black/45"}>{verified ? "Verified endpoint" : "Unverified"}</span></div><p className="mt-4 text-sm text-black/50">{endpoint.host}</p><div className="mt-6 flex items-center justify-between"><span className="text-xs text-black/40">Price unavailable</span><Link href={`/missions/new?agent=${agent.token_id}`} className="rounded-[10px] bg-[#111023] px-4 py-2.5 text-xs font-semibold text-white">Create job</Link></div></article>) : <article className="rounded-[18px] border border-black/10 bg-white p-6 md:col-span-2 lg:col-span-3"><h3 className="font-semibold">No service offer published</h3><p className="mt-2 text-sm text-black/50">This agent has an indexed identity, but no HTTPS service endpoint or price is available.</p></article>}</div>
+        </section>
+
+        <div className="mt-8 grid gap-5 lg:grid-cols-[1.2fr_.8fr]">
+          <section className="y2k-window rounded-[20px] p-7">
             <h2 className="text-2xl font-semibold tracking-[-0.035em] text-[#251926]">Source details</h2>
             <p className="mt-2 text-sm leading-6 text-black/50">These values are read from the indexed ERC-8004 record.</p>
             <dl className="mt-7 space-y-5 text-sm">
@@ -90,7 +95,7 @@ export default async function AgentPassport({ params }: { params: Promise<{ chai
             </dl>
           </section>
 
-          <section className="rounded-[32px] border border-black/8 bg-[#f6f8fb] p-7">
+          <section className="y2k-window rounded-[20px] p-7">
             <h2 className="text-2xl font-semibold tracking-[-0.035em] text-[#251926]">Connections</h2>
             <p className="mt-2 text-sm leading-6 text-black/50">We only show connections the agent has published.</p>
             <div className="mt-6 flex flex-wrap gap-2">{(agent.supported_protocols ?? []).length ? agent.supported_protocols?.map((item) => <span key={item} className="rounded-full bg-[#eef2ff] px-3 py-1.5 text-xs text-[#7048ed]">{item}</span>) : <span className="text-sm text-[#8c8089]">No protocols published</span>}</div>

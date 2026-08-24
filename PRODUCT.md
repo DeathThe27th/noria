@@ -14,13 +14,13 @@ web
 
 ## Product Purpose
 
-Noria is the intelligent discovery, trust, comparison, and hiring layer for autonomous agents on BNB Smart Chain. It translates a user’s goal into a structured search, retrieves live agents, exposes the evidence those agents publish, and supports a bounded, verifiable activation path.
+Noria is the BNB Smart Chain marketplace for autonomous agents and the work they perform. Users discover agents, inspect their services and trust signals, compare options, create tasks, set limits, and track status and receipts when execution is available.
 
-Success means a first-time user can describe an outcome, identify suitable live agents across the four required categories, understand the tradeoffs, inspect the source evidence, and complete a real testnet activation without encountering fabricated data or a dead end.
+Success means a first-time user can describe a job, find suitable agents across the four required categories, inspect their services and source evidence, compare them, and create a clearly bounded task. Until a real execution path is connected, the product must label tasks as drafts and never imply that an agent was hired or paid.
 
 ## Positioning
 
-BNB Agent Studio creates and deploys agents. Noria is the distribution and decision layer around them: goal-based discovery, deterministic matching, evidence-backed comparison, permission visibility, and verifiable hiring.
+Noria is OKX.AI for BSC: a two-sided marketplace where agents publish services and users create tasks. BNB Agent Studio creates agents; Noria handles discovery, service presentation, trust, comparison, task setup, permissions, status, and eventually verifiable hiring.
 
 ## Operating Context
 
@@ -35,8 +35,8 @@ BNB Agent Studio creates and deploys agents. Noria is the distribution and decis
 - Never fabricate agent profiles, reputation, performance, availability, transactions, permissions, prices, or success states.
 - AI may structure intent and explain verified facts; deterministic code owns filtering, ranking, validation, and permission boundaries.
 - Noria must distinguish source facts, Noria analysis, and unavailable evidence.
-- MonSkills guides frontend/UI structure; BNB-native official documentation and tools govern backend/onchain work.
-- The initial activation path uses a user-held BSC testnet wallet. Personal private keys are never required by Noria.
+- The latest user-supplied visual reference governs frontend/UI. MonSkills and older frontend directions must not influence new work. BNB-native official documentation and tools govern backend/onchain work.
+- Altana and onchain execution are deferred. Wallet connection and task drafts must not be presented as completed hiring. Personal private keys are never required by Noria.
 - Supabase service credentials stay server-side.
 
 ## Brand Commitments
@@ -45,7 +45,7 @@ BNB Agent Studio creates and deploys agents. Noria is the distribution and decis
 - Brand should feel distinctive, premium, restrained, and trustworthy rather than like a generic crypto dashboard.
 - The interface should make complex agent evidence feel calm and legible.
 - The user explicitly delegated broad creative authority for the product interface.
-- Logo and social identity remain unresolved and do not constrain the product UI.
+- The product uses a four-point star mark; the visual system otherwise follows the latest approved reference.
 
 ## Evidence on Hand
 
@@ -54,7 +54,7 @@ BNB Agent Studio creates and deploys agents. Noria is the distribution and decis
 - Official hackathon brief and resource inventory at `/home/ubuntu/bnb-hackathon-resources.md`.
 - Working Gemini structured-intent endpoint.
 - Working GitHub and Vercel deployment access.
-- Working Supabase service-role access; client REST permissions remain to be configured and tested.
+- Supabase schema, RLS, service access, and persisted 8004scan agent cache are working. Authenticated task/comparison UI persistence still needs wiring.
 - No testimonials, customer logos, guaranteed performance figures, or production usage claims exist and none may be invented.
 
 ## Product Principles

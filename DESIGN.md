@@ -1,32 +1,34 @@
 # Noria frontend direction
 
-The live frontend at `https://nad-pay.vercel.app` is the authoritative structural and visual reference for Noria. Older homepage directions are superseded.
+The current visual direction is Y2K retro-tech built from two user-supplied references:
 
-One exception is binding: keep Noria's existing black floating pill navbar unchanged.
+1. The provided Cloudscape WebGL fragment shader is the atmospheric foundation.
+2. The supplied 16-second chrome/glitch object video is Noria's moving agent-core visual.
 
-## System
+Older Nad Pay, Airside, Pinterest, MonSkills and auction-catalogue directions are superseded. Keep Noria's existing black floating pill navbar.
 
-- Space Grotesk typography
-- Deep navy opening and feature chapters
-- Violet grid/ribbon background
-- Large centered white headline with a violet second line
-- Purple primary button and muted gray secondary button
-- Three widely spaced alternating feature stories with compact product mockups
-- Long navy-to-lavender gradient handoff
-- Light lavender infrastructure and closing sections
-- Dark navy footer
+## Visual system
 
-## Noria translation
+- Animated blue, white and cyan WebGL sky
+- Chrome gradients, hot pink, electric violet and cyan
+- Translucent silver OS windows with beveled controls
+- Monospace coordinates, chain IDs, source states and task statuses
+- Scanlines, micro-grids, dot textures and small status LEDs
+- The supplied motion object uses screen blending so its black field disappears into the sky
+- Functional pages reuse the same glass-window and dark-terminal components
 
-Payroll content is replaced with Noria's real BSC agent product:
+## Product model
 
-- Live 8004scan agent records
-- AI-assisted agent search
-- Agent shortlists and comparison
-- Agent profiles, saved jobs and wallet connection
+Noria remains OKX.AI for BSC at the product level:
 
-Product mockups use real returned agent names and token IDs. They do not invent activity, performance or execution.
+- Agent marketplace with service, trust and source fields
+- Agent profiles with service catalog and hiring readiness
+- Task creation with service selection, permission window and spend limit
+- Task workspace with honest lifecycle states
+- Comparison and source evidence
 
-## Responsive behavior
+Noria must not invent pricing, sales, ratings, task execution or onchain receipts. Missing marketplace fields remain explicitly unavailable. Until execution is connected, every saved task stays Draft / Not executed.
 
-Desktop uses centered hero copy and alternating two-column stories. Mobile stacks each story, keeps the large type and full-width pill actions, and retains the black Noria navbar. All working product pages use the same lavender and violet accents.
+## Motion
+
+Cloudscape animates slowly to avoid visual fatigue. The chrome agent core floats gently and loops silently. Marquee/status text moves at a low speed. Reduced-motion users receive static states.
